@@ -1,0 +1,176 @@
+<!--
+ * @Autor: ErioY
+ * @Date: 2019-08-15 21:26:22
+ * @Email: 1973545559@qq.com
+ * @Github: https://github.com/ErioY
+ * @LastEditors: ErioY
+ * @LastEditTime: 2019-08-20 23:15:40
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .menu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    li {
+        width: 122px;
+        height: 172px;
+        float: left;
+        position: relative;
+        overflow: hidden;
+    }
+    li div {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    img {
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <ul class="menu clearfix" id="menu">
+        <!-- 时 -->
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+        <!-- 冒号 -->
+        <li>
+            <div>
+                <img src="img/colon0.JPG" alt=""/>
+            </div>
+        </li>
+        <!-- 分 -->
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+        <!-- 冒号 -->
+        <li>
+            <div>
+                <img src="img/colon0.JPG" alt=""/>
+            </div>
+        </li>
+        <!-- 秒 -->
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+        <li>
+            <div>
+                <img src="img/0.JPG" alt="" name="block">
+                <img src="img/0.JPG" alt="" name="none">
+            </div>
+        </li>
+    </ul>
+    <script src="js/ErioJS.js"></script>
+    <script>
+    var aImg = document.getElementsByTagName("img");
+    var aDiv = document.getElementsByTagName("div");
+    var aBlock = document.getElementsByName("block");
+    var aNone = document.getElementsByName("none");
+    // clock();
+    // 循环计时
+    setInterval(function() {
+        clock();
+    },1000);
+    function clock() {
+        // 获取当前时间
+        var oTime = new Date(); 
+        var iH = oTime.getHours(); 
+        var iM = oTime.getMinutes();
+        var iS = oTime.getSeconds();
+        var NowTime = add0(iH) + ":" + add0(iM) + ":" + add0(iS); // 调用补0函数
+        console.log(NowTime); // 测试
+        // for(var i = 0; i < NowTime; i++) {
+        //     aBlock[i].src = NowTime[i] == "img/" + NowTime[i] + ".JPG";
+        // }
+        
+        oTime.setSeconds(oTime.getSeconds()+1);
+        var iSNew = oTime.getSeconds();
+        // 新时间：比现在的时间多一秒
+        var NewTime = add0(iH) + ":" + add0(iM) + ":" + add0(iSNew);
+        console.log(NewTime); // 测试
+        aImg[4].src = "img/colon1.JPG";
+        aImg[9].src = "img/colon1.JPG";
+        
+        for(var i = 0; i < aDiv.length; i++) {
+            aDiv[i].style.top = 0;
+        }
+        var arrBlock = [];
+        var arrNone = [];
+        for(var i = 0; i < aBlock.length; i++) {
+            arrBlock.push(aBlock[i]);
+        }
+        for(var i = 0; i < aNone.length; i++) {
+            arrNone.push(aNone[i]);
+        }
+        for(var i = 0; i < arrBlock.length; i++) {
+            arrBlock[i].src = "img/" + NowTime[i] + ".JPG";
+            arrNone[i].src = "img/" + NewTime[i] + ".JPG";
+        }
+        // var arr1 = [];
+        // var arr2 = [];
+        // var arr3 = [];
+        // 遍历所有的图片
+        // for (var i = 0; i < aBlock.length; i++) {
+        //     // 页面可见的照片（除冒号）存到数组arr1[]里
+        //     // 不可见的存到arr2[]里
+        //     // 冒号存到arr3[]里
+        //     if (i == 0 || i == 2 || i == 5 || i == 7 || i == 10 || i == 12) {
+        //         arr1.push(aImg[i]);
+        //     } else if (i == 1 || i == 3 || i ==6 || i == 8 || i == 11 || i == 13) {
+        //         arr2.push(aImg[i]);
+        //     } else {
+        //         arr3.push(aImg[i]);
+        //     }
+        // }
+        // for (var i = 0; i < arr1.length; i++) {
+        //     arr1[i].src = "img/" + NowTime[i] + ".JPG";
+        //     arr2[i].src = "img/" + NewTime[i] + ".JPG";
+        // }
+        var arr = [];
+        for (var i = 0; i < NowTime.length; i++) {
+            if (NowTime[i] != NewTime[i]) {
+                arr.push(i);
+            }
+        }
+        console.log(arr);
+        for(var i = 0; i < arr.length; i++) {
+            doMove(aDiv[arr[i]], 10, -172, "top");
+        }
+        setTimeout(function () {
+            aImg[4].src = "img/colon0.JPG";
+            aImg[9].src = "img/colon0.JPG";
+        }, 500)
+    }
+    </script>
+</body>
+</html>
